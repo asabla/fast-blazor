@@ -8,20 +8,20 @@ env:
 on:
   push:
     branches:
-      - private-build
+      - main
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
       - '**/*.yml'
-  # workflow_dispatch:
-  #   branches:
-  #     - private-build
-  #   paths-ignore:
-  #     - '**/*.md'
-  #     - '**/*.gitignore'
-  #     - '**/*.gitattributes'
-  #     - '**/*.yml'
+  workflow_dispatch:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      - '**/*.yml'
 
 jobs:
   build:

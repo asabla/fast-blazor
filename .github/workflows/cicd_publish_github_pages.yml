@@ -56,7 +56,7 @@ jobs:
       run: dotnet test
 
     - name: Publish app
-      run: dotnet publish ${{ env.PROJECT }}
+      run: dotnet publish ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }}
 
     # Re-writes base href url so scripts and css loads properly
     # - name: Rewrite base href

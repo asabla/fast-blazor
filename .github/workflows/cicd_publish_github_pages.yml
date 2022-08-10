@@ -14,14 +14,14 @@ on:
       - '**/*.gitignore'
       - '**/*.gitattributes'
       - '**/*.yml'
-  workflow_dispatch:
-    branches:
-      - private-build
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-      - '**/*.yml'
+  # workflow_dispatch:
+  #   branches:
+  #     - private-build
+  #   paths-ignore:
+  #     - '**/*.md'
+  #     - '**/*.gitignore'
+  #     - '**/*.gitattributes'
+  #     - '**/*.yml'
 
 jobs:
   build:

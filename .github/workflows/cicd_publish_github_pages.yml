@@ -64,7 +64,7 @@ jobs:
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: REPOSITORY_NAME
+        # base_href: REPOSITORY_NAME
 
     # Add .nojekyll file to tell github pages not to treat it
     # as a jakyll site. Which allows files and directories with

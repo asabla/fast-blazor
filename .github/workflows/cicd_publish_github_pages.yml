@@ -2,6 +2,7 @@ name: "Build and deploy to GitHub Page"
 
 env:
   PUBLISH_DIR: "examples/FluentUI.Demo.Client/bin/Release/net6.0/publish/wwwroot"
+  FULL_PATH: "${{ GITHUB_WORKSPACE }}/examples/FluentUI.Demo.Client/bin/Release/net6.0/publish/wwwroot"
 
 on:
   push:
@@ -62,7 +63,7 @@ jobs:
       if: success()
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
-        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        html_path: ${{ env.FULL_PATH }}/index.html
         base_href: REPOSITORY_NAME
 
     # Add .nojekyll file to tell github pages not to treat it

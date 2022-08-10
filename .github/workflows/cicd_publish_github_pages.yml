@@ -1,0 +1,82 @@
+name: "Build and deploy to GitHub Page"
+
+env:
+  PUBLISH_DIR: "examples/FluentUI.Demo.Client/bin/Release/net6.0/publish/wwwroot"
+
+on:
+  push:
+    branches:
+      - private-build
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      - '**/*.yml'
+  workflow_dispatch:
+    branches:
+      - private-build
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+      - '**/*.yml'
+
+jobs:
+  build:
+    name: "Build, Pack and deploy to Github page"
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      PROJECT: "examples/FluentUI.Demo.Client/FluentUI.Demo.Client.csproj"
+      BUILD_ARCH: "Any CPU"
+      BUILD_CONFIG: "Release"
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+
+    - name: Restore
+      run: dotnet restore ${{ env.PROJECT }}
+
+    - name: Build
+      run: dotnet build ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
+
+    - name: Test
+      run: dotnet test
+
+    - name: Publish app
+      run: dotnet publish ${{ env.PROJECT }}
+
+    # Re-writes base href url so scripts and css loads properly
+    - name: Rewrite base href
+      if: success()
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+      with:
+        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        base_href: REPOSITORY_NAME
+
+    # Add .nojekyll file to tell github pages not to treat it
+    # as a jakyll site. Which allows files and directories with
+    # underscore in them.
+    - name: Add .nojekyll file
+      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+
+    # Commit to gh-pages branch
+    - name: Commit to Github pages branch
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v1.5.1
+      with:
+        target_branch: gh-pages
+        build_dir: ${{ env.PUBLISH_DIR }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

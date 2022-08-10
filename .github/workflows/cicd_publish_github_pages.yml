@@ -59,18 +59,18 @@ jobs:
       run: dotnet publish ${{ env.PROJECT }} --configuration ${{ env.BUILD_CONFIG }}
 
     # Re-writes base href url so scripts and css loads properly
-    # - name: Rewrite base href
-    #   if: success()
-    #   uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
-    #   with:
-    #     html_path: ${{ env.PUBLISH_DIR }}/index.html
-    #     base_href: REPOSITORY_NAME
+    - name: Rewrite base href
+      if: success()
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+      with:
+        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        base_href: REPOSITORY_NAME
 
     # Add .nojekyll file to tell github pages not to treat it
     # as a jakyll site. Which allows files and directories with
     # underscore in them.
-    # - name: Add .nojekyll file
-    #   run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+    - name: Add .nojekyll file
+      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
 
     # Commit to gh-pages branch
     - name: Commit to Github pages branch

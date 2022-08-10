@@ -70,8 +70,8 @@ jobs:
     # Add .nojekyll file to tell github pages not to treat it
     # as a jakyll site. Which allows files and directories with
     # underscore in them.
-    - name: Add .nojekyll file
-      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+    # - name: Add .nojekyll file
+    #   run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
 
     # Commit to gh-pages branch
     - name: Commit to Github pages branch

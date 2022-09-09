@@ -67,7 +67,7 @@ jobs:
         # base_href: REPOSITORY_NAME
     
     - name: Rename dll files to bin
-      run: for f in $(ls ${{ env.PUBLISH_DIR }}/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
+      run: for f in $(ls -R ${{ env.PUBLISH_DIR }}/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
       
     - name: Update blazor.boot.json
       run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/_framework/blazor.boot.json

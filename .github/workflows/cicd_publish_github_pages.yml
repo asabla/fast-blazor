@@ -70,7 +70,7 @@ jobs:
       run: for f in $(ls ${{ env.PUBLISH_DIR }}/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
       
     - name: Update blazor.boot.json
-      run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/blazor.boot.json
+      run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/_framework/blazor.boot.json
     
     # If service worker is enabled then it has to be updated as well
     #- name: Update service worker-worker-assets.js

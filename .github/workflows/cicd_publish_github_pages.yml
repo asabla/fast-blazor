@@ -65,6 +65,16 @@ jobs:
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         # base_href: REPOSITORY_NAME
+    
+    - name: Rename dll files to bin
+      run: for f in ${{ env.PUBLISH_DIR }}/*; do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
+      
+    - name: Update blazor.boot.json
+      run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/blazor.boot.json
+    
+    # If service worker is enabled then it has to be updated as well
+    #- name: Update service worker-worker-assets.js
+    #  run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/service-worker-assets.js
 
     # Add .nojekyll file to tell github pages not to treat it
     # as a jakyll site. Which allows files and directories with

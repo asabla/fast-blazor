@@ -66,6 +66,9 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         # base_href: REPOSITORY_NAME
     
+    - name: Delete old gz and br files
+      run: find ${{ env.PUBLISH_DIR }}/_framework -type f \( -name "*.gz" -o -name "*.br" \) | xargs rm
+    
     - name: Rename dll files to bin
       run: for f in $(ls ${{ env.PUBLISH_DIR }}/_framework/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
       

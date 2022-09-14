@@ -66,14 +66,17 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         # base_href: REPOSITORY_NAME
     
-    - name: Delete old gz and br files
-      run: find ${{ env.PUBLISH_DIR }}/_framework -type f \( -name "*.gz" -o -name "*.br" \) | xargs rm
+    #- name: Delete old gz and br files
+    #  run: find ${{ env.PUBLISH_DIR }}/_framework -type f \( -name "*.gz" -o -name "*.br" \) | xargs rm
+
+    #- name: Delete old gz files
+    #  run: find ${{ env.PUBLISH_DIR }}/_framework -type f \( -name "*.gz" \) | xargs rm
     
-    - name: Rename dll files to bin
-      run: for f in $(ls ${{ env.PUBLISH_DIR }}/_framework/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.png/g'`"; done
+    #- name: Rename dll files to bin
+    #  run: for f in $(ls ${{ env.PUBLISH_DIR }}/_framework/*.dll); do mv "$f" "`echo $f | sed -e 's/\.dll/.bin/g'`"; done
       
-    - name: Update blazor.boot.json
-      run: sed -i 's/\.dll"/.png"/g' ${{ env.PUBLISH_DIR }}/_framework/blazor.boot.json
+    #- name: Update blazor.boot.json
+    #  run: sed -i 's/\.dll"/.bin"/g' ${{ env.PUBLISH_DIR }}/_framework/blazor.boot.json
     
     # If service worker is enabled then it has to be updated as well
     #- name: Update service worker-worker-assets.js

@@ -36,7 +36,7 @@
                             throw new Error(response.statusText);
                         
                         const originalResponseBuffer = await response.arrayBuffer();
-                        const originalresponseArray = await Int8Array(originalResponseBuffer);
+                        const originalresponseArray = new Int8Array(originalResponseBuffer);
                         const decompressedResponsearray = BrotliDecode(originalresponseArray);
                         const contentType = type ==
                             'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';

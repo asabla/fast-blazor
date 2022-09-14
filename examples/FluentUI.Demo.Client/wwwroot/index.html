@@ -26,7 +26,7 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script type="module">
-        import { BrotliDecode } from './decode/.min.js';
+        import { BrotliDecode } from './decode.min.js';
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
                 if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
